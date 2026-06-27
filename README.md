@@ -21,8 +21,6 @@ route, hand you the number, and let you style it however you like.
 
 ```bash
 npm i vistas
-# the server adapter also needs:
-npm i @upstash/redis
 ```
 
 ## 1. Set up the database (once)
