@@ -1,7 +1,7 @@
 {
   "name": "vistas",
   "version": "0.1.0",
-  "description": "NEW PACKAGE CALLED VISTAS",
+  "description": "Tiny, framework-agnostic page-view counter. Bring your own database (Upstash Redis). Works in Astro, Next.js, React, React Native and plain HTML.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -16,7 +16,48 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
-    }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client.d.ts",
+        "default": "./dist/client.js"
+      },
+      "require": {
+        "types": "./dist/client.d.cts",
+        "default": "./dist/client.cjs"
+      }
+    },
+    "./element": {
+      "import": {
+        "types": "./dist/element.d.ts",
+        "default": "./dist/element.js"
+      },
+      "require": {
+        "types": "./dist/element.d.cts",
+        "default": "./dist/element.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./server": {
+      "import": {
+        "types": "./dist/server.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": {
+        "types": "./dist/server.d.cts",
+        "default": "./dist/server.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
@@ -28,7 +69,19 @@
     "prepublishOnly": "bun run build",
     "test": "node test/smoke.mjs"
   },
-  "keywords": [],
+  "keywords": [
+    "views",
+    "view-counter",
+    "page-views",
+    "hit-counter",
+    "analytics",
+    "astro",
+    "nextjs",
+    "react",
+    "react-native",
+    "upstash",
+    "redis"
+  ],
   "author": "Gohit X (bastndev)",
   "license": "MIT",
   "homepage": "https://github.com/bastndev/vistas#readme",
@@ -45,8 +98,23 @@
   "engines": {
     "node": ">=20"
   },
+  "peerDependencies": {
+    "@upstash/redis": ">=1.0.0",
+    "react": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@upstash/redis": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@types/node": "^22",
+    "@types/react": "^19",
+    "@upstash/redis": "^1.35.0",
+    "react": "^19",
     "tsup": "^8",
     "typescript": "^5"
   }
