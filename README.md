@@ -1,14 +1,56 @@
-# vistas
+<div align="center">
 
-A tiny, framework-agnostic **page-view counter**. One job: count real views per
-route, hand you the number, and let you style it however you like.
+  <a href="https://www.gohit.xyz/package/vistas">
+    <img alt="vistas logo" src="https://raw.githubusercontent.com/bastndev/vistas/main/public/banner.webp" height="128">
+  </a>
+
+<br>
+
+<h1></h1>
+
+<br>
+
+<a href="https://www.npmjs.com/package/vistas"><img alt="NPM version" src="https://img.shields.io/npm/v/vistas.svg?style=for-the-badge&logo=npm&color=ef4444&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistas"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistas.svg?style=for-the-badge&logo=npm&color=ef4444&labelColor=18181b"></a>
+<a href="https://github.com/bastndev/vistas/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistas.svg?style=for-the-badge&color=ef4444&labelColor=18181b"></a>
+<a href="https://github.com/bastndev/vistas/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistas.svg?style=for-the-badge&logo=github&color=ef4444&labelColor=18181b"></a>
+
+<h1></h1>
+
+<p >
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ES.md">Español 🇪🇸</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ZH.md">中文 🇨🇳</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_DE.md">Deutsch 🇩🇪</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_FR.md">Français 🇫🇷</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_JA.md">日本語 🇯🇵</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_KO.md">한국어 🇰🇷</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_PT.md">Português 🇧🇷</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_RU.md">Русский 🇷🇺</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_VI.md">Tiếng Việt 🇻🇳</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_HI.md">हिन्दी 🇮🇳</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_AR.md">العربية 🇸🇦</a><span>...</span>
+</p>
+
+</div>
+
+<br>
+
+> A tiny, framework-agnostic **page-view counter**. One job: count real views per route, hand you the number, and let you style it however you like.
+
+<br>
+
+```bash
+npm i vistas
+```
+
+<br>
 
 - 🪶 **Tiny & zero-dependency client** — the core is just `fetch` + storage.
 - 🔁 **Refresh-proof** — `localStorage` dedup, so reloads don't inflate counts.
 - 🧩 **Works everywhere** — Astro, plain HTML, Next.js, React, React Native, LynxJS.
 - 🎨 **Your UI** — get a number and render it your way, or drop in a one-line badge.
 - 🏆 **Per-page counts + ranking** — see which article is winning, in one query.
-- 📦 **Bring Your Own Database** — your data lives in *your* free Upstash Redis. The
+- 📦 **Bring Your Own Database** — your data lives in _your_ free Upstash Redis. The
   package hosts nothing.
 
 > **You need:** a free [Upstash Redis](https://console.upstash.com) database and a host
@@ -16,12 +58,6 @@ route, hand you the number, and let you style it however you like.
 > holds the secret token; the browser never sees it.
 
 ---
-
-## Install
-
-```bash
-npm i vistas
-```
 
 ## 1. Set up the database (once)
 
@@ -105,7 +141,7 @@ const { count } = useViews("blog", {
 ```ts
 import { trackView } from "vistas";
 
-const count = await trackView("blog");          // POST first visit, GET after
+const count = await trackView("blog"); // POST first visit, GET after
 document.querySelector("#views").textContent = String(count);
 ```
 
