@@ -225,4 +225,4 @@ full ranking come from the same structure.
 
 ## License
 
-MIT © [bastndev](https://github.com/bastndev)
+MIT
