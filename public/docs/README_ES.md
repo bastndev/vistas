@@ -18,7 +18,7 @@
 <h1></h1>
 
 <p >
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ES.md">Español 🇪🇸</a> |
+  <a href="https://github.com/bastndev/vistas/blob/main/README.md">English 🇺🇸</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ZH.md">中文 🇨🇳</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_DE.md">Deutsch 🇩🇪</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_FR.md">Français 🇫🇷</a> |
@@ -35,7 +35,7 @@
 
 <br>
 
-> A tiny, framework-agnostic **page-view counter**. One job: count real views per route, hand you the number, and let you style it however you like.
+> Un pequeño **contador de vistas de página** independiente del framework. Un solo trabajo: contar las vistas reales por ruta, devolverte el número y permitirte estilizarlo como quieras.
 
 <br>
 
@@ -45,39 +45,38 @@ npm i vistas
 
 <br>
 
-- 🪶 **Tiny & zero-dependency client** — the core is just `fetch` + storage.
-- 🔁 **Refresh-proof** — `localStorage` dedup, so reloads don't inflate counts.
-- 🧩 **Works everywhere** — Astro, plain HTML, Next.js, React, React Native, LynxJS.
-- 🎨 **Your UI** — get a number and render it your way, or drop in a one-line badge.
-- 🏆 **Per-page counts + ranking** — see which article is winning, in one query.
-- 📦 **Bring Your Own Database** — your data lives in _your_ free Upstash Redis. The
-  package hosts nothing.
+- 🪶 **Pequeño y cero dependencias en el cliente** — el núcleo es solo `fetch` + almacenamiento.
+- 🔁 **Resistente a actualizaciones** — deduplicación con `localStorage`, para que las recargas no inflen los conteos.
+- 🧩 **Funciona en todas partes** — Astro, HTML puro, Next.js, React, React Native, LynxJS.
+- 🎨 **Tu interfaz** — obtén un número y renderízalo a tu manera, o usa un badge de una línea.
+- 🏆 **Conteos por página + clasificación** — ve qué artículo está ganando, en una sola consulta.
+- 📦 **Trae tu propia base de datos** — tus datos viven en _tu_ Redis Upstash gratuito. El paquete no aloja nada.
 
-> **You need:** a free [Upstash Redis](https://console.upstash.com) database and a host
-> that runs serverless endpoints (Vercel/Netlify/Cloudflare/Astro SSR). The endpoint
-> holds the secret token; the browser never sees it.
+> **Necesitas:** una base de datos gratuita de [Upstash Redis](https://console.upstash.com) y un host
+> que ejecute endpoints serverless (Vercel/Netlify/Cloudflare/Astro SSR). El endpoint
+> mantiene el token secreto; el navegador nunca lo ve.
 
 ---
 
-## 1. Set up the database (once)
+## 1. Configurar la base de datos (una vez)
 
-Create a free database at [console.upstash.com](https://console.upstash.com), then put
-its REST credentials in `.env` (see [`.env.example`](./.env.example)):
+Crea una base de datos gratuita en [console.upstash.com](https://console.upstash.com), luego pon
+sus credenciales REST en `.env` (ve [`.env.example`](./.env.example)):
 
 ```bash
 UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
 UPSTASH_REDIS_REST_TOKEN=your-rest-token
 ```
 
-## 2. Add the API route (server)
+## 2. Agregar la ruta API (servidor)
 
-Create one endpoint. The slug comes from the URL, so use a catch-all route.
+Crea un endpoint. El slug viene de la URL, así que usa una ruta catch-all.
 
 ```ts
 // Astro: src/pages/api/views/[...slug].ts
 import { createUpstashAdapter, createRouteHandlers } from "vistas/server";
 
-const views = createUpstashAdapter(); // reads UPSTASH_* from env
+const views = createUpstashAdapter(); // lee UPSTASH_* del entorno
 export const { GET, POST } = createRouteHandlers(views);
 ```
 
@@ -89,20 +88,20 @@ const views = createUpstashAdapter();
 export const { GET, POST } = createRouteHandlers(views);
 ```
 
-> **Astro note:** API routes need SSR — add an adapter like `@astrojs/vercel` and set
-> `output: "server"` (or `hybrid`). A fully static build can't run endpoints.
+> **Nota de Astro:** Las rutas API necesitan SSR — agrega un adaptador como `@astrojs/vercel` y establece
+> `output: "server"` (o `hybrid`). Una compilación completamente estática no puede ejecutar endpoints.
 
-## 3. Show the counter (client)
+## 3. Mostrar el contador (cliente)
 
-Pick whichever fits. All three talk to the same endpoint.
+Elige el que se ajuste. Los tres hablan con el mismo endpoint.
 
-### Web component — Astro / plain HTML (no React)
+### Componente web — Astro / HTML puro (sin React)
 
 ```astro
 ---
-// any .astro page
+// cualquier página .astro
 ---
-<p>Views: <vistas-counter slug="blog">…</vistas-counter></p>
+<p>Vistas: <vistas-counter slug="blog">…</vistas-counter></p>
 
 <script>
   import { defineVistasCounter } from "vistas/element";
@@ -110,7 +109,7 @@ Pick whichever fits. All three talk to the same endpoint.
 </script>
 
 <style>
-  vistas-counter { font-weight: 600; } /* style it like any element */
+  vistas-counter { font-weight: 600; } /* estilízalo como cualquier elemento */
 </style>
 ```
 
@@ -125,7 +124,7 @@ export function Views({ slug }: { slug: string }) {
 }
 ```
 
-React Native (no `localStorage`, and the endpoint must be absolute):
+React Native (sin `localStorage`, y el endpoint debe ser absoluto):
 
 ```tsx
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -136,29 +135,29 @@ const { count } = useViews("blog", {
 });
 ```
 
-### Plain function (build your own UI)
+### Función pura (construye tu propia interfaz)
 
 ```ts
 import { trackView } from "vistas";
 
-const count = await trackView("blog"); // POST first visit, GET after
+const count = await trackView("blog"); // POST en la primera visita, GET después
 document.querySelector("#views").textContent = String(count);
 ```
 
-### Badge — works anywhere an image does (even Markdown)
+### Badge — funciona donde una imagen lo haga (incluso en Markdown)
 
 ```html
-<img src="https://yoursite.com/api/views/blog.svg" alt="views" />
+<img src="https://yoursite.com/api/views/blog.svg" alt="vistas" />
 ```
 
-Zero JS, but every load counts and you can't style an image — use a native option
-above when you want accuracy + your own CSS.
+Cero JS, pero cada carga cuenta y no puedes estilizar una imagen — usa una opción nativa
+anterior cuando quieras precisión + tu propio CSS.
 
 ---
 
-## Your private stats page (ranking)
+## Tu página de estadísticas privada (clasificación)
 
-Add a second route to read every page ordered by traffic:
+Agrega una segunda ruta para leer cada página ordenada por tráfico:
 
 ```ts
 // Astro: src/pages/api/views/ranking.ts   (Next: app/api/views/ranking/route.ts)
@@ -167,28 +166,28 @@ import { createUpstashAdapter, createRankingHandler } from "vistas/server";
 export const { GET } = createRankingHandler(createUpstashAdapter());
 ```
 
-`GET /api/views/ranking` → `[{ "slug": "blog", "count": 152 }, ...]` (supports `?limit=10`).
-Render it in a private `/admin` page for an instant mini-dashboard.
+`GET /api/views/ranking` → `[{ "slug": "blog", "count": 152 }, ...]` (soporta `?limit=10`).
+Renderízalo en una página privada `/admin` para un mini-dashboard instantáneo.
 
 ---
 
 ## API
 
-### Client — `vistas`
+### Cliente — `vistas`
 
 ```ts
 trackView(slug, options?): Promise<number>
 createTracker(options?): { track(slug): Promise<number> }
 ```
 
-`options`: `endpoint` (default `"/api/views"`), `cooldown` (default `"24h"`; `ms` number
-or `"30m"`/`"24h"`/`"7d"`), `storage` (default `localStorage` → memory fallback),
-`fetch` (custom fetch). `trackView` never throws into your UI — on error it resolves `0`.
+`options`: `endpoint` (por defecto `"/api/views"`), `cooldown` (por defecto `"24h"`; número `ms`
+o `"30m"`/`"24h"`/`"7d"`), `storage` (por defecto `localStorage` → fallback a memoria),
+`fetch` (fetch personalizado). `trackView` nunca lanza errores en tu interfaz — en caso de error resuelve `0`.
 
-### Element — `vistas/element`
+### Elemento — `vistas/element`
 
 ```ts
-defineVistasCounter(options?): void   // registers <vistas-counter slug endpoint cooldown>
+defineVistasCounter(options?): void   // registra <vistas-counter slug endpoint cooldown>
 ```
 
 ### React — `vistas/react`
@@ -197,7 +196,7 @@ defineVistasCounter(options?): void   // registers <vistas-counter slug endpoint
 useViews(slug, options?): { count: number | null; loading: boolean; error: Error | null }
 ```
 
-### Server — `vistas/server`
+### Servidor — `vistas/server`
 
 ```ts
 createUpstashAdapter(options?): ViewsAdapter   // { url?, token?, key?, redis? }
@@ -206,23 +205,23 @@ createRankingHandler(views): { GET }
 renderCountSvg(count, options?): string
 ```
 
-Want a different database? Implement the `ViewsAdapter` interface
-(`increment`, `get`, `getMany`, `getRanking`) and pass it to the handlers.
+¿Quieres una base de datos diferente? Implementa la interfaz `ViewsAdapter`
+(`increment`, `get`, `getMany`, `getRanking`) y pásala a los handlers.
 
 ---
 
-## How counting works
+## Cómo funciona el conteo
 
 ```
-Browser / App ──fetch──▶  /api/views/[slug]      ──▶  Upstash Redis (your DB)
- localStorage dedup        your serverless route        one sorted set:
- (1 count per cooldown)    (holds the token)            count + ranking
+Navegador / App ──fetch──▶  /api/views/[slug]      ──▶  Upstash Redis (tu DB)
+  localStorage dedup        tu ruta serverless          un sorted set:
+  (1 conteo por cooldown)   (mantiene el token)         conteo + clasificación
 ```
 
-First visit within the cooldown sends `POST` (increment); later visits send `GET`
-(read-only). Counts live in a single Redis sorted set, so per-page totals and the
-full ranking come from the same structure.
+La primera visita dentro del cooldown envía `POST` (incrementar); las visitas posteriores envían `GET`
+(solo lectura). Los conteos viven en un solo sorted set de Redis, por lo que los totales por página y la
+clasificación completa provienen de la misma estructura.
 
-## License
+## Licencia
 
 MIT © [bastndev](https://github.com/bastndev)

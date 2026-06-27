@@ -98,14 +98,13 @@
   "engines": {
     "node": ">=20"
   },
+  "dependencies": {
+    "@upstash/redis": "^1.35.0"
+  },
   "peerDependencies": {
-    "@upstash/redis": ">=1.0.0",
     "react": ">=17.0.0"
   },
   "peerDependenciesMeta": {
-    "@upstash/redis": {
-      "optional": true
-    },
     "react": {
       "optional": true
     }
@@ -113,7 +112,6 @@
   "devDependencies": {
     "@types/node": "^22",
     "@types/react": "^19",
-    "@upstash/redis": "^1.35.0",
     "react": "^19",
     "tsup": "^8",
     "typescript": "^5"

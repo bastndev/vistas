@@ -18,8 +18,8 @@
 <h1></h1>
 
 <p >
+  <a href="https://github.com/bastndev/vistas/blob/main/README.md">English 🇺🇸</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ES.md">Español 🇪🇸</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ZH.md">中文 🇨🇳</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_DE.md">Deutsch 🇩🇪</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_FR.md">Français 🇫🇷</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_JA.md">日本語 🇯🇵</a> |
@@ -35,7 +35,7 @@
 
 <br>
 
-> A tiny, framework-agnostic **page-view counter**. One job: count real views per route, hand you the number, and let you style it however you like.
+> 一个轻量级、与框架无关的**页面浏览量计数器**。只做一件事：统计每个路由的真实浏览量，将数字交给你，然后让你随心所欲地设计样式。
 
 <br>
 
@@ -45,39 +45,35 @@ npm i vistas
 
 <br>
 
-- 🪶 **Tiny & zero-dependency client** — the core is just `fetch` + storage.
-- 🔁 **Refresh-proof** — `localStorage` dedup, so reloads don't inflate counts.
-- 🧩 **Works everywhere** — Astro, plain HTML, Next.js, React, React Native, LynxJS.
-- 🎨 **Your UI** — get a number and render it your way, or drop in a one-line badge.
-- 🏆 **Per-page counts + ranking** — see which article is winning, in one query.
-- 📦 **Bring Your Own Database** — your data lives in _your_ free Upstash Redis. The
-  package hosts nothing.
+- 🪶 **轻量且客户端零依赖** — 核心只是 `fetch` + 存储。
+- 🔁 **刷新无忧** — `localStorage` 去重，所以刷新页面不会增加计数。
+- 🧩 **随处可用** — Astro、纯 HTML、Next.js、React、React Native、LynxJS。
+- 🎨 **你的界面** — 获取数字并按你的方式渲染，或者添加一行代码的徽章。
+- 🏆 **每页计数 + 排名** — 一次查询即可查看哪篇文章最受欢迎。
+- 📦 **自带数据库** — 你的数据存放在你自己的免费 Upstash Redis 中。该包不托管任何内容。
 
-> **You need:** a free [Upstash Redis](https://console.upstash.com) database and a host
-> that runs serverless endpoints (Vercel/Netlify/Cloudflare/Astro SSR). The endpoint
-> holds the secret token; the browser never sees it.
+> **你需要：** 一个免费的 [Upstash Redis](https://console.upstash.com) 数据库和一个运行无服务器端点的主机（Vercel/Netlify/Cloudflare/Astro SSR）。端点保存密钥令牌；浏览器永远看不到它。
 
 ---
 
-## 1. Set up the database (once)
+## 1. 设置数据库（一次）
 
-Create a free database at [console.upstash.com](https://console.upstash.com), then put
-its REST credentials in `.env` (see [`.env.example`](./.env.example)):
+在 [console.upstash.com](https://console.upstash.com) 创建一个免费数据库，然后将其 REST 凭据放入 `.env`（参见 [`.env.example`](./.env.example)）：
 
 ```bash
 UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
 UPSTASH_REDIS_REST_TOKEN=your-rest-token
 ```
 
-## 2. Add the API route (server)
+## 2. 添加 API 路由（服务器）
 
-Create one endpoint. The slug comes from the URL, so use a catch-all route.
+创建一个端点。slug 来自 URL，因此使用一个通配路由。
 
 ```ts
 // Astro: src/pages/api/views/[...slug].ts
 import { createUpstashAdapter, createRouteHandlers } from "vistas/server";
 
-const views = createUpstashAdapter(); // reads UPSTASH_* from env
+const views = createUpstashAdapter(); // 从环境变量读取 UPSTASH_*
 export const { GET, POST } = createRouteHandlers(views);
 ```
 
@@ -89,20 +85,20 @@ const views = createUpstashAdapter();
 export const { GET, POST } = createRouteHandlers(views);
 ```
 
-> **Astro note:** API routes need SSR — add an adapter like `@astrojs/vercel` and set
-> `output: "server"` (or `hybrid`). A fully static build can't run endpoints.
+> **Astro 注意：** API 路由需要 SSR — 添加一个适配器如 `@astrojs/vercel` 并设置
+> `output: "server"`（或 `hybrid`）。完全静态的构建无法运行端点。
 
-## 3. Show the counter (client)
+## 3. 显示计数器（客户端）
 
-Pick whichever fits. All three talk to the same endpoint.
+选择适合你的方式。三者都与同一个端点通信。
 
-### Web component — Astro / plain HTML (no React)
+### Web 组件 — Astro / 纯 HTML（无 React）
 
 ```astro
 ---
-// any .astro page
+// 任何 .astro 页面
 ---
-<p>Views: <vistas-counter slug="blog">…</vistas-counter></p>
+<p>浏览量：<vistas-counter slug="blog">…</vistas-counter></p>
 
 <script>
   import { defineVistasCounter } from "vistas/element";
@@ -110,7 +106,7 @@ Pick whichever fits. All three talk to the same endpoint.
 </script>
 
 <style>
-  vistas-counter { font-weight: 600; } /* style it like any element */
+  vistas-counter { font-weight: 600; } /* 像任何元素一样设置样式 */
 </style>
 ```
 
@@ -125,7 +121,7 @@ export function Views({ slug }: { slug: string }) {
 }
 ```
 
-React Native (no `localStorage`, and the endpoint must be absolute):
+React Native（无 `localStorage`，且端点必须是绝对路径）：
 
 ```tsx
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -136,29 +132,28 @@ const { count } = useViews("blog", {
 });
 ```
 
-### Plain function (build your own UI)
+### 纯函数（构建你自己的界面）
 
 ```ts
 import { trackView } from "vistas";
 
-const count = await trackView("blog"); // POST first visit, GET after
+const count = await trackView("blog"); // 首次访问发送 POST，之后发送 GET
 document.querySelector("#views").textContent = String(count);
 ```
 
-### Badge — works anywhere an image does (even Markdown)
+### 徽章 — 在任何可以使用图片的地方都可以使用（包括 Markdown）
 
 ```html
 <img src="https://yoursite.com/api/views/blog.svg" alt="views" />
 ```
 
-Zero JS, but every load counts and you can't style an image — use a native option
-above when you want accuracy + your own CSS.
+零 JS，但每次加载都会计数，且你无法为图片设置样式 — 当你需要准确性 + 自定义 CSS 时，请使用上述原生选项。
 
 ---
 
-## Your private stats page (ranking)
+## 你的私有统计页面（排名）
 
-Add a second route to read every page ordered by traffic:
+添加第二个路由来读取按流量排序的所有页面：
 
 ```ts
 // Astro: src/pages/api/views/ranking.ts   (Next: app/api/views/ranking/route.ts)
@@ -167,28 +162,28 @@ import { createUpstashAdapter, createRankingHandler } from "vistas/server";
 export const { GET } = createRankingHandler(createUpstashAdapter());
 ```
 
-`GET /api/views/ranking` → `[{ "slug": "blog", "count": 152 }, ...]` (supports `?limit=10`).
-Render it in a private `/admin` page for an instant mini-dashboard.
+`GET /api/views/ranking` → `[{ "slug": "blog", "count": 152 }, ...]`（支持 `?limit=10`）。
+在私有 `/admin` 页面中渲染它，即可获得即时迷你仪表板。
 
 ---
 
 ## API
 
-### Client — `vistas`
+### 客户端 — `vistas`
 
 ```ts
 trackView(slug, options?): Promise<number>
 createTracker(options?): { track(slug): Promise<number> }
 ```
 
-`options`: `endpoint` (default `"/api/views"`), `cooldown` (default `"24h"`; `ms` number
-or `"30m"`/`"24h"`/`"7d"`), `storage` (default `localStorage` → memory fallback),
-`fetch` (custom fetch). `trackView` never throws into your UI — on error it resolves `0`.
+`options`：`endpoint`（默认 `"/api/views"`）、`cooldown`（默认 `"24h"`；`ms` 数字
+或 `"30m"`/`"24h"`/`"7d"`）、`storage`（默认 `localStorage` → 内存回退）、
+`fetch`（自定义 fetch）。`trackView` 永远不会在你的界面中抛出错误 — 出错时解析为 `0`。
 
-### Element — `vistas/element`
+### 元素 — `vistas/element`
 
 ```ts
-defineVistasCounter(options?): void   // registers <vistas-counter slug endpoint cooldown>
+defineVistasCounter(options?): void   // 注册 <vistas-counter slug endpoint cooldown>
 ```
 
 ### React — `vistas/react`
@@ -197,7 +192,7 @@ defineVistasCounter(options?): void   // registers <vistas-counter slug endpoint
 useViews(slug, options?): { count: number | null; loading: boolean; error: Error | null }
 ```
 
-### Server — `vistas/server`
+### 服务器 — `vistas/server`
 
 ```ts
 createUpstashAdapter(options?): ViewsAdapter   // { url?, token?, key?, redis? }
@@ -206,23 +201,20 @@ createRankingHandler(views): { GET }
 renderCountSvg(count, options?): string
 ```
 
-Want a different database? Implement the `ViewsAdapter` interface
-(`increment`, `get`, `getMany`, `getRanking`) and pass it to the handlers.
+想要使用不同的数据库？实现 `ViewsAdapter` 接口（`increment`、`get`、`getMany`、`getRanking`）并将其传递给处理程序。
 
 ---
 
-## How counting works
+## 计数工作原理
 
 ```
-Browser / App ──fetch──▶  /api/views/[slug]      ──▶  Upstash Redis (your DB)
- localStorage dedup        your serverless route        one sorted set:
- (1 count per cooldown)    (holds the token)            count + ranking
+浏览器 / 应用 ──fetch──▶  /api/views/[slug]      ──▶  Upstash Redis（你的数据库）
+  localStorage 去重        你的无服务器路由            一个有序集合：
+  （每次冷却 1 次计数）    （保存令牌）               计数 + 排名
 ```
 
-First visit within the cooldown sends `POST` (increment); later visits send `GET`
-(read-only). Counts live in a single Redis sorted set, so per-page totals and the
-full ranking come from the same structure.
+冷却期内的首次访问发送 `POST`（递增）；之后的访问发送 `GET`（只读）。计数存储在单个 Redis 有序集合中，因此每页总数和完整排名来自同一结构。
 
-## License
+## 许可证
 
 MIT © [bastndev](https://github.com/bastndev)

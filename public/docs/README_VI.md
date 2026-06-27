@@ -18,6 +18,7 @@
 <h1></h1>
 
 <p >
+  <a href="https://github.com/bastndev/vistas/blob/main/README.md">English 🇺🇸</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ES.md">Español 🇪🇸</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ZH.md">中文 🇨🇳</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_DE.md">Deutsch 🇩🇪</a> |
@@ -26,7 +27,6 @@
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_KO.md">한국어 🇰🇷</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_PT.md">Português 🇧🇷</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_RU.md">Русский 🇷🇺</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_VI.md">Tiếng Việt 🇻🇳</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_HI.md">हिन्दी 🇮🇳</a> |
   <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_AR.md">العربية 🇸🇦</a><span>...</span>
 </p>
@@ -35,7 +35,7 @@
 
 <br>
 
-> A tiny, framework-agnostic **page-view counter**. One job: count real views per route, hand you the number, and let you style it however you like.
+> Một **bộ đếm lượt xem trang** nhỏ gọn, không phụ thuộc framework. Một nhiệm vụ duy nhất: đếm lượt xem thực tế theo route, đưa bạn số liệu và để bạn tùy ý chỉnh样式.
 
 <br>
 
@@ -45,39 +45,38 @@ npm i vistas
 
 <br>
 
-- 🪶 **Tiny & zero-dependency client** — the core is just `fetch` + storage.
-- 🔁 **Refresh-proof** — `localStorage` dedup, so reloads don't inflate counts.
-- 🧩 **Works everywhere** — Astro, plain HTML, Next.js, React, React Native, LynxJS.
-- 🎨 **Your UI** — get a number and render it your way, or drop in a one-line badge.
-- 🏆 **Per-page counts + ranking** — see which article is winning, in one query.
-- 📦 **Bring Your Own Database** — your data lives in _your_ free Upstash Redis. The
-  package hosts nothing.
+- 🪶 **Nhỏ gọn & zero dependency ở client** — lõi chỉ là `fetch` + storage.
+- 🔁 **Chống refresh** — loại bỏ trùng lặp qua `localStorage`, nên việc tải lại không làm tăng số đếm.
+- 🧩 **Hoạt động mọi nơi** — Astro, HTML thuần, Next.js, React, React Native, LynxJS.
+- 🎨 **Giao diện của bạn** — lấy số liệu và render theo cách của bạn, hoặc thêm badge một dòng.
+- 🏆 **Đếm theo trang + xếp hạng** — xem bài viết nào đang dẫn đầu, chỉ với một truy vấn.
+- 📦 **Mang database của riêng bạn** — dữ liệu nằm trong _Redis Upstash miễn phí_ của bạn. Package không host gì cả.
 
-> **You need:** a free [Upstash Redis](https://console.upstash.com) database and a host
-> that runs serverless endpoints (Vercel/Netlify/Cloudflare/Astro SSR). The endpoint
-> holds the secret token; the browser never sees it.
+> **Bạn cần:** một database miễn phí [Upstash Redis](https://console.upstash.com) và host
+> chạy serverless endpoint (Vercel/Netlify/Cloudflare/Astro SSR). Endpoint
+> giữ secret token; trình duyệt không bao giờ thấy nó.
 
 ---
 
-## 1. Set up the database (once)
+## 1. Thiết lập database (một lần)
 
-Create a free database at [console.upstash.com](https://console.upstash.com), then put
-its REST credentials in `.env` (see [`.env.example`](./.env.example)):
+Tạo database miễn phí tại [console.upstash.com](https://console.upstash.com), rồi đặt
+REST credentials vào `.env` (xem [`.env.example`](./.env.example)):
 
 ```bash
 UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
 UPSTASH_REDIS_REST_TOKEN=your-rest-token
 ```
 
-## 2. Add the API route (server)
+## 2. Thêm API route (server)
 
-Create one endpoint. The slug comes from the URL, so use a catch-all route.
+Tạo một endpoint. Slug lấy từ URL, nên dùng route catch-all.
 
 ```ts
 // Astro: src/pages/api/views/[...slug].ts
 import { createUpstashAdapter, createRouteHandlers } from "vistas/server";
 
-const views = createUpstashAdapter(); // reads UPSTASH_* from env
+const views = createUpstashAdapter(); // đọc UPSTASH_* từ env
 export const { GET, POST } = createRouteHandlers(views);
 ```
 
@@ -89,20 +88,19 @@ const views = createUpstashAdapter();
 export const { GET, POST } = createRouteHandlers(views);
 ```
 
-> **Astro note:** API routes need SSR — add an adapter like `@astrojs/vercel` and set
-> `output: "server"` (or `hybrid`). A fully static build can't run endpoints.
+> **Lưu ý Astro:** API route cần SSR — thêm adapter như `@astrojs/vercel` và đặt
+> `output: "server"` (hoặc `hybrid`). Build hoàn toàn static không thể chạy endpoint.
 
-## 3. Show the counter (client)
+## 3. Hiển thị bộ đếm (client)
 
-Pick whichever fits. All three talk to the same endpoint.
+Chọn cách phù hợp. Cả ba đều giao tiếp với cùng một endpoint.
 
-### Web component — Astro / plain HTML (no React)
+### Web component — Astro / HTML thuần (không React)
 
-```astro
+```astro---
+// bất kỳ trang .astro nào
 ---
-// any .astro page
----
-<p>Views: <vistas-counter slug="blog">…</vistas-counter></p>
+<p>Lượt xem: <vistas-counter slug="blog">…</vistas-counter></p>
 
 <script>
   import { defineVistasCounter } from "vistas/element";
@@ -110,7 +108,7 @@ Pick whichever fits. All three talk to the same endpoint.
 </script>
 
 <style>
-  vistas-counter { font-weight: 600; } /* style it like any element */
+  vistas-counter { font-weight: 600; } /* styled như bất kỳ element nào */
 </style>
 ```
 
@@ -125,7 +123,7 @@ export function Views({ slug }: { slug: string }) {
 }
 ```
 
-React Native (no `localStorage`, and the endpoint must be absolute):
+React Native (không `localStorage`, và endpoint phải là absolute):
 
 ```tsx
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -136,29 +134,29 @@ const { count } = useViews("blog", {
 });
 ```
 
-### Plain function (build your own UI)
+### Hàm thuần (xây dựng UI của riêng bạn)
 
 ```ts
 import { trackView } from "vistas";
 
-const count = await trackView("blog"); // POST first visit, GET after
+const count = await trackView("blog"); // POST lượt đầu, GET sau đó
 document.querySelector("#views").textContent = String(count);
 ```
 
-### Badge — works anywhere an image does (even Markdown)
+### Badge — hoạt động ở bất kỳ đâu hình ảnh hoạt động (kể cả Markdown)
 
 ```html
-<img src="https://yoursite.com/api/views/blog.svg" alt="views" />
+<img src="https://yoursite.com/api/views/blog.svg" alt="lượt xem" />
 ```
 
-Zero JS, but every load counts and you can't style an image — use a native option
-above when you want accuracy + your own CSS.
+Zero JS, nhưng mỗi lần tải đều đếm và bạn không thể style hình ảnh — dùng tùy chọn native
+ở trên khi muốn chính xác + CSS riêng.
 
 ---
 
-## Your private stats page (ranking)
+## Trang thống kê riêng tư (xếp hạng)
 
-Add a second route to read every page ordered by traffic:
+Thêm route thứ hai để đọc mọi trang theo thứ tự lượt truy cập:
 
 ```ts
 // Astro: src/pages/api/views/ranking.ts   (Next: app/api/views/ranking/route.ts)
@@ -167,8 +165,8 @@ import { createUpstashAdapter, createRankingHandler } from "vistas/server";
 export const { GET } = createRankingHandler(createUpstashAdapter());
 ```
 
-`GET /api/views/ranking` → `[{ "slug": "blog", "count": 152 }, ...]` (supports `?limit=10`).
-Render it in a private `/admin` page for an instant mini-dashboard.
+`GET /api/views/ranking` → `[{ "slug": "blog", "count": 152 }, ...]` (hỗ trợ `?limit=10`).
+Render trên trang riêng tư `/admin` để có mini dashboard tức thì.
 
 ---
 
@@ -181,14 +179,14 @@ trackView(slug, options?): Promise<number>
 createTracker(options?): { track(slug): Promise<number> }
 ```
 
-`options`: `endpoint` (default `"/api/views"`), `cooldown` (default `"24h"`; `ms` number
-or `"30m"`/`"24h"`/`"7d"`), `storage` (default `localStorage` → memory fallback),
-`fetch` (custom fetch). `trackView` never throws into your UI — on error it resolves `0`.
+`options`: `endpoint` (mặc định `"/api/views"`), `cooldown` (mặc định `"24h"`; số `ms`
+hoặc `"30m"`/`"24h"`/`"7d"`), `storage` (mặc định `localStorage` → dự phòng bằng memory),
+`fetch` (fetch tùy chỉnh). `trackView` không bao giờ throw vào UI — khi lỗi resolve `0`.
 
 ### Element — `vistas/element`
 
 ```ts
-defineVistasCounter(options?): void   // registers <vistas-counter slug endpoint cooldown>
+defineVistasCounter(options?): void   // đăng ký <vistas-counter slug endpoint cooldown>
 ```
 
 ### React — `vistas/react`
@@ -206,23 +204,23 @@ createRankingHandler(views): { GET }
 renderCountSvg(count, options?): string
 ```
 
-Want a different database? Implement the `ViewsAdapter` interface
-(`increment`, `get`, `getMany`, `getRanking`) and pass it to the handlers.
+Muốn dùng database khác? Triển khai interface `ViewsAdapter`
+(`increment`, `get`, `getMany`, `getRanking`) và truyền cho handler.
 
 ---
 
-## How counting works
+## Cách đếm hoạt động
 
 ```
-Browser / App ──fetch──▶  /api/views/[slug]      ──▶  Upstash Redis (your DB)
- localStorage dedup        your serverless route        one sorted set:
- (1 count per cooldown)    (holds the token)            count + ranking
+Trình duyệt / App ──fetch──▶  /api/views/[slug]      ──▶  Upstash Redis (database của bạn)
+  localStorage dedup          route serverless của bạn    một sorted set:
+  (1 đếm mỗi cooldown)       (giữ token)                đếm + xếp hạng
 ```
 
-First visit within the cooldown sends `POST` (increment); later visits send `GET`
-(read-only). Counts live in a single Redis sorted set, so per-page totals and the
-full ranking come from the same structure.
+Lượt truy cập đầu tiên trong cooldown gửi `POST` (tăng); các lượt sau gửi `GET`
+(chỉ đọc). Các số đếm nằm trong một sorted set Redis duy nhất, nên tổng theo trang và
+xếp hạng đầy đủ đều lấy từ cùng cấu trúc.
 
-## License
+## Giấy phép
 
 MIT © [bastndev](https://github.com/bastndev)
