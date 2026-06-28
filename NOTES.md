@@ -2,7 +2,7 @@
 
 ```bash
 # Login (only once)
-bun login --auth-type=web
+npm login --auth-type=web
 
 # Verify session
 bun whoami
