@@ -224,4 +224,4 @@ clasificación completa provienen de la misma estructura.
 
 ## Licencia
 
-MIT © [bastndev](https://github.com/bastndev)
+MIT

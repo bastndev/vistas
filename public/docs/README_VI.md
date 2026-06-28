@@ -223,4 +223,4 @@ xếp hạng đầy đủ đều lấy từ cùng cấu trúc.
 
 ## Giấy phép
 
-MIT © [bastndev](https://github.com/bastndev)
+MIT
