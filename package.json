@@ -84,10 +84,10 @@
   ],
   "author": "Gohit X (bastndev)",
   "license": "MIT",
-  "homepage": "https://github.com/bastndev/viztas#readme",
+  "homepage": "https://github.com/bastndev/vistaz#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bastndev/viztas.git"
+    "url": "git+https://github.com/bastndev/vistaz.git"
   },
   "bugs": {
     "url": "https://github.com/bastndev/vistaz/issues"

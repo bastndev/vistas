@@ -1,7 +1,7 @@
 <div align="center">
 
-  <a href="https://www.gohit.xyz/package/viztas">
-    <img alt="viztas logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
+  <a href="https://www.gohit.xyz/package/vistaz">
+    <img alt="vistaz logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
   </a>
 
 <br>
@@ -10,9 +10,9 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/viztas"><img alt="NPM version" src="https://img.shields.io/npm/v/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/viztas"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/viztas.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
 <a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
 
 <h1></h1>
@@ -40,7 +40,7 @@
 <br>
 
 ```bash
-npm i viztas
+npm i vistaz
 ```
 
 <br>
@@ -74,7 +74,7 @@ Tạo một endpoint. Slug lấy từ URL, nên dùng route catch-all.
 
 ```ts
 // Astro: src/pages/api/views/[...slug].ts
-import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
 
 const views = createUpstashAdapter(); // đọc UPSTASH_* từ env
 export const { GET, POST } = createRouteHandlers(views);
@@ -82,7 +82,7 @@ export const { GET, POST } = createRouteHandlers(views);
 
 ```ts
 // Next.js App Router: app/api/views/[...slug]/route.ts
-import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
 
 const views = createUpstashAdapter();
 export const { GET, POST } = createRouteHandlers(views);
@@ -100,22 +100,22 @@ Chọn cách phù hợp. Cả ba đều giao tiếp với cùng một endpoint.
 ```astro---
 // bất kỳ trang .astro nào
 ---
-<p>Lượt xem: <viztas-counter slug="blog">…</viztas-counter></p>
+<p>Lượt xem: <vistaz-counter slug="blog">…</vistaz-counter></p>
 
 <script>
-  import { defineViztasCounter } from "viztas/element";
+  import { defineViztasCounter } from "vistaz/element";
   defineViztasCounter();
 </script>
 
 <style>
-  viztas-counter { font-weight: 600; } /* styled như bất kỳ element nào */
+  vistaz-counter { font-weight: 600; } /* styled như bất kỳ element nào */
 </style>
 ```
 
 ### React / Next.js / React Native / LynxJS
 
 ```tsx
-import { useViews } from "viztas/react";
+import { useViews } from "vistaz/react";
 
 export function Views({ slug }: { slug: string }) {
   const { count, loading } = useViews(slug);
@@ -137,7 +137,7 @@ const { count } = useViews("blog", {
 ### Hàm thuần (xây dựng UI của riêng bạn)
 
 ```ts
-import { trackView } from "viztas";
+import { trackView } from "vistaz";
 
 const count = await trackView("blog"); // POST lượt đầu, GET sau đó
 document.querySelector("#views").textContent = String(count);
@@ -160,7 +160,7 @@ Thêm route thứ hai để đọc mọi trang theo thứ tự lượt truy cậ
 
 ```ts
 // Astro: src/pages/api/views/ranking.ts   (Next: app/api/views/ranking/route.ts)
-import { createUpstashAdapter, createRankingHandler } from "viztas/server";
+import { createUpstashAdapter, createRankingHandler } from "vistaz/server";
 
 export const { GET } = createRankingHandler(createUpstashAdapter());
 ```
@@ -172,7 +172,7 @@ Render trên trang riêng tư `/admin` để có mini dashboard tức thì.
 
 ## API
 
-### Client — `viztas`
+### Client — `vistaz`
 
 ```ts
 trackView(slug, options?): Promise<number>
@@ -183,19 +183,19 @@ createTracker(options?): { track(slug): Promise<number> }
 hoặc `"30m"`/`"24h"`/`"7d"`), `storage` (mặc định `localStorage` → dự phòng bằng memory),
 `fetch` (fetch tùy chỉnh). `trackView` không bao giờ throw vào UI — khi lỗi resolve `0`.
 
-### Element — `viztas/element`
+### Element — `vistaz/element`
 
 ```ts
-defineViztasCounter(options?): void   // đăng ký <viztas-counter slug endpoint cooldown>
+defineViztasCounter(options?): void   // đăng ký <vistaz-counter slug endpoint cooldown>
 ```
 
-### React — `viztas/react`
+### React — `vistaz/react`
 
 ```ts
 useViews(slug, options?): { count: number | null; loading: boolean; error: Error | null }
 ```
 
-### Server — `viztas/server`
+### Server — `vistaz/server`
 
 ```ts
 createUpstashAdapter(options?): ViewsAdapter   // { url?, token?, key?, redis? }

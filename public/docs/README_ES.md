@@ -1,7 +1,7 @@
 <div align="center">
 
-  <a href="https://www.gohit.xyz/package/viztas">
-    <img alt="viztas logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
+  <a href="https://www.gohit.xyz/package/vistaz">
+    <img alt="vistaz logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
   </a>
 
 <br>
@@ -10,9 +10,9 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/viztas"><img alt="NPM version" src="https://img.shields.io/npm/v/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/viztas"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/viztas.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
 <a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
 
 <h1></h1>
@@ -40,7 +40,7 @@
 <br>
 
 ```bash
-npm i viztas
+npm i vistaz
 ```
 
 <br>
@@ -74,7 +74,7 @@ Crea un endpoint. El slug viene de la URL, así que usa una ruta catch-all.
 
 ```ts
 // Astro: src/pages/api/views/[...slug].ts
-import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
 
 const views = createUpstashAdapter(); // lee UPSTASH_* del entorno
 export const { GET, POST } = createRouteHandlers(views);
@@ -82,7 +82,7 @@ export const { GET, POST } = createRouteHandlers(views);
 
 ```ts
 // Next.js App Router: app/api/views/[...slug]/route.ts
-import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
 
 const views = createUpstashAdapter();
 export const { GET, POST } = createRouteHandlers(views);
@@ -101,22 +101,22 @@ Elige el que se ajuste. Los tres hablan con el mismo endpoint.
 ---
 // cualquier página .astro
 ---
-<p>Vistas: <viztas-counter slug="blog">…</viztas-counter></p>
+<p>Vistas: <vistaz-counter slug="blog">…</vistaz-counter></p>
 
 <script>
-  import { defineViztasCounter } from "viztas/element";
+  import { defineViztasCounter } from "vistaz/element";
   defineViztasCounter();
 </script>
 
 <style>
-  viztas-counter { font-weight: 600; } /* estilízalo como cualquier elemento */
+  vistaz-counter { font-weight: 600; } /* estilízalo como cualquier elemento */
 </style>
 ```
 
 ### React / Next.js / React Native / LynxJS
 
 ```tsx
-import { useViews } from "viztas/react";
+import { useViews } from "vistaz/react";
 
 export function Views({ slug }: { slug: string }) {
   const { count, loading } = useViews(slug);
@@ -138,7 +138,7 @@ const { count } = useViews("blog", {
 ### Función pura (construye tu propia interfaz)
 
 ```ts
-import { trackView } from "viztas";
+import { trackView } from "vistaz";
 
 const count = await trackView("blog"); // POST en la primera visita, GET después
 document.querySelector("#views").textContent = String(count);
@@ -147,7 +147,7 @@ document.querySelector("#views").textContent = String(count);
 ### Badge — funciona donde una imagen lo haga (incluso en Markdown)
 
 ```html
-<img src="https://yoursite.com/api/views/blog.svg" alt="vistas" />
+<img src="https://yoursite.com/api/views/blog.svg" alt="vistaz" />
 ```
 
 Cero JS, pero cada carga cuenta y no puedes estilizar una imagen — usa una opción nativa
@@ -161,7 +161,7 @@ Agrega una segunda ruta para leer cada página ordenada por tráfico:
 
 ```ts
 // Astro: src/pages/api/views/ranking.ts   (Next: app/api/views/ranking/route.ts)
-import { createUpstashAdapter, createRankingHandler } from "viztas/server";
+import { createUpstashAdapter, createRankingHandler } from "vistaz/server";
 
 export const { GET } = createRankingHandler(createUpstashAdapter());
 ```
@@ -173,7 +173,7 @@ Renderízalo en una página privada `/admin` para un mini-dashboard instantáneo
 
 ## API
 
-### Cliente — `vistas`
+### Cliente — `vistaz`
 
 ```ts
 trackView(slug, options?): Promise<number>
@@ -184,19 +184,19 @@ createTracker(options?): { track(slug): Promise<number> }
 o `"30m"`/`"24h"`/`"7d"`), `storage` (por defecto `localStorage` → fallback a memoria),
 `fetch` (fetch personalizado). `trackView` nunca lanza errores en tu interfaz — en caso de error resuelve `0`.
 
-### Elemento — `vistas/element`
+### Elemento — `vistaz/element`
 
 ```ts
-defineViztasCounter(options?): void   // registra <viztas-counter slug endpoint cooldown>
+defineViztasCounter(options?): void   // registra <vistaz-counter slug endpoint cooldown>
 ```
 
-### React — `viztas/react`
+### React — `vistaz/react`
 
 ```ts
 useViews(slug, options?): { count: number | null; loading: boolean; error: Error | null }
 ```
 
-### Servidor — `vistas/server`
+### Servidor — `vistaz/server`
 
 ```ts
 createUpstashAdapter(options?): ViewsAdapter   // { url?, token?, key?, redis? }
