@@ -21,6 +21,10 @@ bun publish
 
 # 🚀 Update Package
 
+```ts
+bun pm version patch; git push --follow-tags; bun publish
+```
+
 ## Bug fix
 
 ```bash
