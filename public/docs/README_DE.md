@@ -224,4 +224,4 @@ vollständiges Ranking aus derselben Struktur stammen.
 
 ## Lizenz
 
-MIT © [bastndev](https://github.com/bastndev)
+MIT

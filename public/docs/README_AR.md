@@ -225,4 +225,4 @@ renderCountSvg(count, options?): string
 
 ## الترخيص
 
-MIT © [bastndev](https://github.com/bastndev)
+MIT

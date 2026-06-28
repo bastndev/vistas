@@ -217,4 +217,4 @@ renderCountSvg(count, options?): string
 
 ## 许可证
 
-MIT © [bastndev](https://github.com/bastndev)
+MIT

@@ -220,4 +220,4 @@ renderCountSvg(count, options?): string
 
 ## 라이선스
 
-MIT © [bastndev](https://github.com/bastndev)
+MIT
