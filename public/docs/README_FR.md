@@ -10,10 +10,10 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&logoColor=white&color=A8784E&labelColor=121214"></a>
 
 <h1></h1>
 
@@ -90,6 +90,24 @@ export const { GET, POST } = createRouteHandlers(views);
 
 > **Note Astro :** Les routes API nécessitent SSR — ajoutez un adaptateur comme `@astrojs/vercel` et définissez
 > `output: "server"` (ou `hybrid`). Un build entièrement statique ne peut pas exécuter des endpoints.
+
+### 🚀 Note pour les utilisateurs d'Astro / Vite
+
+Étant donné qu'Astro et Vite exposent les variables d'environnement de manière sécurisée via `import.meta.env`
+plutôt que le global `process.env` de Node, la lecture automatique des identifiants ne fonctionnera pas
+par défaut.
+
+Si vous utilisez Astro ou Vite, vous devez passer explicitement vos identifiants Upstash à l'adaptateur :
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
 
 ## 3. Afficher le compteur (client)
 

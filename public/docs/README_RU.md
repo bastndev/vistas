@@ -10,10 +10,10 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&logoColor=white&color=A8784E&labelColor=121214"></a>
 
 <h1></h1>
 
@@ -90,6 +90,23 @@ export const { GET, POST } = createRouteHandlers(views);
 
 > **Заметка для Astro:** API-маршруты требуют SSR — добавьте адаптер, такой как `@astrojs/vercel`, и установите
 > `output: "server"` (или `hybrid`). Полностью статическая сборка не может запускать эндпоинты.
+
+### 🚀 Заметка для пользователей Astro / Vite
+
+Поскольку Astro и Vite безопасно предоставляют переменные окружения через `import.meta.env`, а не через
+глобальный `process.env` Node, автоматическое чтение учётных данных не будет работать по умолчанию.
+
+Если вы используете Astro или Vite, необходимо явно передать учётные данные Upstash в адаптер:
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
 
 ## 3. Отображение счётчика (клиент)
 

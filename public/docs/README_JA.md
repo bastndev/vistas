@@ -10,10 +10,10 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&logoColor=white&color=A8784E&labelColor=121214"></a>
 
 <h1></h1>
 
@@ -90,6 +90,23 @@ export const { GET, POST } = createRouteHandlers(views);
 
 > **Astroの注意：** APIルートにはSSRが必要です — `@astrojs/vercel` のようなアダプターを追加し、
 > `output: "server"`（または `hybrid`）を設定してください。完全に静的なビルドではエンドポイントを実行できません。
+
+### 🚀 Astro / Vite ユーザーへの注意
+
+Astro と Vite は Node のグローバル `process.env` ではなく `import.meta.env` を通じて環境変数を
+安全に公開するため、自動的なクレデンシャル読み取りはそのままでは機能しません。
+
+Astro または Vite を使用している場合は、Upstash のクレデンシャルをアダプターに明示的に渡す必要があります：
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
 
 ## 3. カウンターの表示（クライアント）
 

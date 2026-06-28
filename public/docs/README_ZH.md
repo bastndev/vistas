@@ -10,10 +10,10 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&logoColor=white&color=A8784E&labelColor=121214"></a>
 
 <h1></h1>
 
@@ -87,6 +87,23 @@ export const { GET, POST } = createRouteHandlers(views);
 
 > **Astro 注意：** API 路由需要 SSR — 添加一个适配器如 `@astrojs/vercel` 并设置
 > `output: "server"`（或 `hybrid`）。完全静态的构建无法运行端点。
+
+### 🚀 Astro / Vite 用户须知
+
+由于 Astro 和 Vite 通过 `import.meta.env` 而非 Node 全局 `process.env` 安全地暴露环境变量，
+自动读取凭据的功能将无法开箱即用。
+
+如果你使用 Astro 或 Vite，必须将 Upstash 凭据显式传递给适配器：
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
 
 ## 3. 显示计数器（客户端）
 

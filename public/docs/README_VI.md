@@ -10,10 +10,10 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&logoColor=white&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=A8784E&labelColor=121214"></a>
+<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&logoColor=white&color=A8784E&labelColor=121214"></a>
 
 <h1></h1>
 
@@ -90,6 +90,23 @@ export const { GET, POST } = createRouteHandlers(views);
 
 > **Lưu ý Astro:** API route cần SSR — thêm adapter như `@astrojs/vercel` và đặt
 > `output: "server"` (hoặc `hybrid`). Build hoàn toàn static không thể chạy endpoint.
+
+### 🚀 Lưu ý cho người dùng Astro / Vite
+
+Do Astro và Vite expose biến môi trường một cách an toàn qua `import.meta.env` thay vì global
+`process.env` của Node, việc tự động đọc credentials sẽ không hoạt động ngay lập tức.
+
+Nếu bạn dùng Astro hoặc Vite, bạn phải truyền credentials Upstash tường minh vào adapter:
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
 
 ## 3. Hiển thị bộ đếm (client)
 

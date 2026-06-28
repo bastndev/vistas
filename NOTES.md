@@ -28,21 +28,21 @@ bun pm version patch; git push --follow-tags; bun publish
 ## Bug fix
 
 ```bash
-bun pm version patch
+bun pm version patch #0.1.2
 bun publish
 ```
 
 ## New feature
 
 ```bash
-bun pm version minor
+bun pm version minor #0.2.0
 bun publish
 ```
 
 ## Breaking change
 
 ```bash
-bun pm version major
+bun pm version major  #2.0.0
 bun publish
 ```
 
