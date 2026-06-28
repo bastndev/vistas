@@ -1,7 +1,7 @@
 <div align="center">
 
-  <a href="https://www.gohit.xyz/package/vistas">
-    <img alt="vistas logo" src="https://raw.githubusercontent.com/bastndev/vistas/main/public/banner.webp" height="128">
+  <a href="https://www.gohit.xyz/package/viztas">
+    <img alt="viztas logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
   </a>
 
 <br>
@@ -10,25 +10,25 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/vistas"><img alt="NPM version" src="https://img.shields.io/npm/v/vistas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/vistas"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistas/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistas.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistas/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistas.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/viztas"><img alt="NPM version" src="https://img.shields.io/npm/v/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/viztas"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/viztas.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
 
 <h1></h1>
 
 <p >
-  <a href="https://github.com/bastndev/vistas/blob/main/README.md">English 🇺🇸</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ES.md">Español 🇪🇸</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_ZH.md">中文 🇨🇳</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_DE.md">Deutsch 🇩🇪</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_FR.md">Français 🇫🇷</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_JA.md">日本語 🇯🇵</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_PT.md">Português 🇧🇷</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_RU.md">Русский 🇷🇺</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_VI.md">Tiếng Việt 🇻🇳</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_HI.md">हिन्दी 🇮🇳</a> |
-  <a href="https://github.com/bastndev/vistas/blob/main/public/docs/README_AR.md">العربية 🇸🇦</a><span>...</span>
+  <a href="https://github.com/bastndev/vistaz/blob/main/README.md">English 🇺🇸</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_ES.md">Español 🇪🇸</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_ZH.md">中文 🇨🇳</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_DE.md">Deutsch 🇩🇪</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_FR.md">Français 🇫🇷</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_JA.md">日本語 🇯🇵</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_PT.md">Português 🇧🇷</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_RU.md">Русский 🇷🇺</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_VI.md">Tiếng Việt 🇻🇳</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_HI.md">हिन्दी 🇮🇳</a> |
+  <a href="https://github.com/bastndev/vistaz/blob/main/public/docs/README_AR.md">العربية 🇸🇦</a><span>...</span>
 </p>
 
 </div>
@@ -40,7 +40,7 @@
 <br>
 
 ```bash
-npm i vistas
+npm i viztas
 ```
 
 <br>
@@ -73,7 +73,7 @@ UPSTASH_REDIS_REST_TOKEN=your-rest-token
 
 ```ts
 // Astro: src/pages/api/views/[...slug].ts
-import { createUpstashAdapter, createRouteHandlers } from "vistas/server";
+import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
 
 const views = createUpstashAdapter(); // 환경변수에서 UPSTASH_* 읽기
 export const { GET, POST } = createRouteHandlers(views);
@@ -81,7 +81,7 @@ export const { GET, POST } = createRouteHandlers(views);
 
 ```ts
 // Next.js App Router: app/api/views/[...slug]/route.ts
-import { createUpstashAdapter, createRouteHandlers } from "vistas/server";
+import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
 
 const views = createUpstashAdapter();
 export const { GET, POST } = createRouteHandlers(views);
@@ -100,22 +100,22 @@ export const { GET, POST } = createRouteHandlers(views);
 ---
 // 임의의 .astro 페이지
 ---
-<p>조회수: <vistas-counter slug="blog">…</vistas-counter></p>
+<p>조회수: <viztas-counter slug="blog">…</viztas-counter></p>
 
 <script>
-  import { defineVistasCounter } from "vistas/element";
-  defineVistasCounter();
+  import { defineViztasCounter } from "viztas/element";
+  defineViztasCounter();
 </script>
 
 <style>
-  vistas-counter { font-weight: 600; } /* 어떤 요소처럼 스타일 지정 */
+  viztas-counter { font-weight: 600; } /* 어떤 요소처럼 스타일 지정 */
 </style>
 ```
 
 ### React / Next.js / React Native / LynxJS
 
 ```tsx
-import { useViews } from "vistas/react";
+import { useViews } from "viztas/react";
 
 export function Views({ slug }: { slug: string }) {
   const { count, loading } = useViews(slug);
@@ -137,7 +137,7 @@ const { count } = useViews("blog", {
 ### 순수 함수 (직접 UI 구축)
 
 ```ts
-import { trackView } from "vistas";
+import { trackView } from "viztas";
 
 const count = await trackView("blog"); // 첫 방문시 POST, 이후 GET
 document.querySelector("#views").textContent = String(count);
@@ -159,7 +159,7 @@ JS 제로이지만, 매 로드마다 카운트되며 이미지에는 스타일�
 
 ```ts
 // Astro: src/pages/api/views/ranking.ts   (Next: app/api/views/ranking/route.ts)
-import { createUpstashAdapter, createRankingHandler } from "vistas/server";
+import { createUpstashAdapter, createRankingHandler } from "viztas/server";
 
 export const { GET } = createRankingHandler(createUpstashAdapter());
 ```
@@ -185,10 +185,10 @@ createTracker(options?): { track(slug): Promise<number> }
 ### 엘리먼트 — `vistas/element`
 
 ```ts
-defineVistasCounter(options?): void   // <vistas-counter slug endpoint cooldown> 등록
+defineViztasCounter(options?): void   // <viztas-counter slug endpoint cooldown> 등록
 ```
 
-### React — `vistas/react`
+### React — `viztas/react`
 
 ```ts
 useViews(slug, options?): { count: number | null; loading: boolean; error: Error | null }

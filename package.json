@@ -1,5 +1,5 @@
 {
-  "name": "vistas",
+  "name": "vistaz",
   "version": "0.1.0",
   "description": "Tiny, framework-agnostic page-view counter. Bring your own database (Upstash Redis). Works in Astro, Next.js, React, React Native and plain HTML.",
   "type": "module",
@@ -84,13 +84,13 @@
   ],
   "author": "Gohit X (bastndev)",
   "license": "MIT",
-  "homepage": "https://github.com/bastndev/vistas#readme",
+  "homepage": "https://github.com/bastndev/viztas#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bastndev/vistas.git"
+    "url": "git+https://github.com/bastndev/viztas.git"
   },
   "bugs": {
-    "url": "https://github.com/bastndev/vistas/issues"
+    "url": "https://github.com/bastndev/vistaz/issues"
   },
   "publishConfig": {
     "access": "public"
