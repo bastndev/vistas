@@ -30,7 +30,7 @@ function formatCount(count: number): string {
 /**
  * Render a minimal, self-contained SVG showing a count. Used for the badge mode
  * (`<img src=".../blog.svg">`). Deliberately plain so it inherits nicely; for a
- * styled counter use the native mode (`trackView` / `<vistas-counter>`) instead.
+ * styled counter use the native mode (`trackView` / `<vistaz-counter>`) instead.
  */
 export function renderCountSvg(count: number, options: SvgOptions = {}): string {
   const fontSize = options.fontSize ?? 14;

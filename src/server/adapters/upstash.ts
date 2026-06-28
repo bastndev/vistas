@@ -10,7 +10,7 @@ export interface UpstashAdapterOptions {
   url?: string;
   /** Upstash REST token. Defaults to `process.env.UPSTASH_REDIS_REST_TOKEN`. */
   token?: string;
-  /** Sorted-set key holding every page's count. Default `"vistas:ranking"`. */
+  /** Sorted-set key holding every page's count. Default `"vistaz:ranking"`. */
   key?: string;
   /** Use an existing `@upstash/redis` client instead of building one. */
   redis?: Redis;
@@ -30,7 +30,7 @@ function envValue(name: string): string | undefined {
 export function createUpstashAdapter(
   options: UpstashAdapterOptions = {}
 ): ViewsAdapter {
-  const key = options.key ?? "vistas:ranking";
+  const key = options.key ?? "vistaz:ranking";
   const url = options.url ?? envValue("UPSTASH_REDIS_REST_URL");
   const token = options.token ?? envValue("UPSTASH_REDIS_REST_TOKEN");
 
@@ -39,7 +39,7 @@ export function createUpstashAdapter(
     (() => {
       if (!url || !token) {
         throw new Error(
-          "vistas: missing Upstash credentials. Set UPSTASH_REDIS_REST_URL and " +
+          "vistaz: missing Upstash credentials. Set UPSTASH_REDIS_REST_URL and " +
             "UPSTASH_REDIS_REST_TOKEN, or pass { url, token } to createUpstashAdapter()."
         );
       }
