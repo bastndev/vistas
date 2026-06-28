@@ -35,7 +35,7 @@
 
 <br>
 
-> Un pequeño **contador de vistas de página** independiente del framework. Un solo trabajo: contar las vistas reales por ruta, devolverte el número y permitirte estilizarlo como quieras.
+> Un pequeño **contador de vistaz de página** independiente del framework. Un solo trabajo: contar las vistaz reales por ruta, devolverte el número y permitirte estilizarlo como quieras.
 
 <br>
 
@@ -101,7 +101,7 @@ Elige el que se ajuste. Los tres hablan con el mismo endpoint.
 ---
 // cualquier página .astro
 ---
-<p>Vistas: <vistaz-counter slug="blog">…</vistaz-counter></p>
+<p>Vistaz: <vistaz-counter slug="blog">…</vistaz-counter></p>
 
 <script>
   import { defineViztasCounter } from "vistaz/element";

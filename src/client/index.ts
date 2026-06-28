@@ -17,13 +17,13 @@ export interface TrackOptions {
   fetch?: typeof fetch;
 }
 
-const STORAGE_PREFIX = "vistas:viewed:";
+const STORAGE_PREFIX = "vistaz:viewed:";
 
 function pickFetch(custom?: typeof fetch): typeof fetch {
   if (custom) return custom;
   if (typeof fetch !== "undefined") return fetch;
   throw new Error(
-    "vistas: no global fetch found. Pass `fetch` in options for this runtime."
+    "vistaz: no global fetch found. Pass `fetch` in options for this runtime."
   );
 }
 

@@ -8,7 +8,7 @@ import {
   createUpstashAdapter,
   renderCountSvg,
 } from '../dist/server.js';
-import { defineVistasCounter } from '../dist/element.js';
+import { defineVistazCounter } from '../dist/element.js';
 
 /* ------------------------------------------------------------------ */
 /* Client: trackView dedup behaviour                                  */
@@ -31,7 +31,7 @@ import { defineVistasCounter } from '../dist/element.js';
   const c1 = await trackView('blog', { fetch: mockFetch, storage });
   assert.equal(c1, 1, 'first visit increments');
   assert.equal(calls[0].method, 'POST');
-  assert.ok(store.has('vistas:viewed:blog'), 'timestamp persisted');
+  assert.ok(store.has('vistaz:viewed:blog'), 'timestamp persisted');
 
   // 2nd visit within cooldown → GET (read-only)
   const c2 = await trackView('blog', { fetch: mockFetch, storage });
@@ -39,7 +39,7 @@ import { defineVistasCounter } from '../dist/element.js';
   assert.equal(calls[1].method, 'GET');
 
   // Expired cooldown → POST again
-  store.set('vistas:viewed:blog', String(Date.now() - 25 * 3600 * 1000));
+  store.set('vistaz:viewed:blog', String(Date.now() - 25 * 3600 * 1000));
   const c3 = await trackView('blog', { fetch: mockFetch, storage });
   assert.equal(calls[2].method, 'POST', 'expired cooldown re-counts');
   assert.equal(c3, 2);
@@ -153,8 +153,8 @@ import { defineVistasCounter } from '../dist/element.js';
 /* ------------------------------------------------------------------ */
 /* Web component define is SSR-safe (no DOM → no-op, no throw)         */
 /* ------------------------------------------------------------------ */
-assert.equal(typeof defineVistasCounter, 'function');
-defineVistasCounter();
+assert.equal(typeof defineVistazCounter, 'function');
+defineVistazCounter();
 
 /* ------------------------------------------------------------------ */
 /* CJS builds load and expose the API                                 */
@@ -170,7 +170,7 @@ defineVistasCounter();
 /* Optional live Upstash check (runs only if credentials are present) */
 /* ------------------------------------------------------------------ */
 if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
-  const live = createUpstashAdapter({ key: 'vistas:smoke-test' });
+  const live = createUpstashAdapter({ key: 'vistaz:smoke-test' });
   const before = await live.get('smoke');
   const after = await live.increment('smoke');
   assert.equal(after, before + 1, 'live Upstash increment works');
