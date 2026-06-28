@@ -1,6 +1,6 @@
 {
   "name": "vistaz",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tiny, framework-agnostic page-view counter. Bring your own database (Upstash Redis). Works in Astro, Next.js, React, React Native and plain HTML.",
   "type": "module",
   "main": "./dist/index.cjs",
