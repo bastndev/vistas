@@ -1,7 +1,7 @@
 <div align="center">
 
-  <a href="https://www.gohit.xyz/package/viztas">
-    <img alt="viztas logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
+  <a href="https://www.gohit.xyz/package/vistaz">
+    <img alt="vistaz logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
   </a>
 
 <br>
@@ -10,9 +10,9 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/viztas"><img alt="NPM version" src="https://img.shields.io/npm/v/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/viztas"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/viztas.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
 <a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
 
 <h1></h1>
@@ -40,7 +40,7 @@
 <br>
 
 ```bash
-npm i viztas
+npm i vistaz
 ```
 
 <br>
@@ -74,7 +74,7 @@ Crie um endpoint. O slug vem da URL, então use uma rota catch-all.
 
 ```ts
 // Astro: src/pages/api/views/[...slug].ts
-import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
 
 const views = createUpstashAdapter(); // lê UPSTASH_* do ambiente
 export const { GET, POST } = createRouteHandlers(views);
@@ -82,7 +82,7 @@ export const { GET, POST } = createRouteHandlers(views);
 
 ```ts
 // Next.js App Router: app/api/views/[...slug]/route.ts
-import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
 
 const views = createUpstashAdapter();
 export const { GET, POST } = createRouteHandlers(views);
@@ -101,22 +101,22 @@ Escolha o que se encaixa. Todos os três se comunicam com o mesmo endpoint.
 ---
 // qualquer página .astro
 ---
-<p>Visualizações: <viztas-counter slug="blog">…</viztas-counter></p>
+<p>Visualizações: <vistaz-counter slug="blog">…</vistaz-counter></p>
 
 <script>
-  import { defineViztasCounter } from "viztas/element";
+  import { defineViztasCounter } from "vistaz/element";
   defineViztasCounter();
 </script>
 
 <style>
-  viztas-counter { font-weight: 600; } /* estilize como qualquer elemento */
+  vistaz-counter { font-weight: 600; } /* estilize como qualquer elemento */
 </style>
 ```
 
 ### React / Next.js / React Native / LynxJS
 
 ```tsx
-import { useViews } from "viztas/react";
+import { useViews } from "vistaz/react";
 
 export function Views({ slug }: { slug: string }) {
   const { count, loading } = useViews(slug);
@@ -138,7 +138,7 @@ const { count } = useViews("blog", {
 ### Função pura (construa sua própria UI)
 
 ```ts
-import { trackView } from "viztas";
+import { trackView } from "vistaz";
 
 const count = await trackView("blog"); // POST na primeira visita, GET depois
 document.querySelector("#views").textContent = String(count);
@@ -161,7 +161,7 @@ Adicione uma segunda rota para ler cada página ordenada por tráfego:
 
 ```ts
 // Astro: src/pages/api/views/ranking.ts   (Next: app/api/views/ranking/route.ts)
-import { createUpstashAdapter, createRankingHandler } from "viztas/server";
+import { createUpstashAdapter, createRankingHandler } from "vistaz/server";
 
 export const { GET } = createRankingHandler(createUpstashAdapter());
 ```
@@ -173,7 +173,7 @@ Renderize em uma página privada `/admin` para um mini-dashboard instantâneo.
 
 ## API
 
-### Cliente — `vistas`
+### Cliente — `vistaz`
 
 ```ts
 trackView(slug, options?): Promise<number>
@@ -184,19 +184,19 @@ createTracker(options?): { track(slug): Promise<number> }
 ou `"30m"`/`"24h"`/`"7d"`), `storage` (padrão `localStorage` → fallback em memória),
 `fetch` (fetch personalizado). `trackView` nunca lança erro na sua UI — em caso de erro resolve `0`.
 
-### Elemento — `vistas/element`
+### Elemento — `vistaz/element`
 
 ```ts
-defineViztasCounter(options?): void   // registra <viztas-counter slug endpoint cooldown>
+defineViztasCounter(options?): void   // registra <vistaz-counter slug endpoint cooldown>
 ```
 
-### React — `viztas/react`
+### React — `vistaz/react`
 
 ```ts
 useViews(slug, options?): { count: number | null; loading: boolean; error: Error | null }
 ```
 
-### Servidor — `vistas/server`
+### Servidor — `vistaz/server`
 
 ```ts
 createUpstashAdapter(options?): ViewsAdapter   // { url?, token?, key?, redis? }

@@ -1,7 +1,7 @@
 <div align="center">
 
-  <a href="https://www.gohit.xyz/package/viztas">
-    <img alt="viztas logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
+  <a href="https://www.gohit.xyz/package/vistaz">
+    <img alt="vistaz logo" src="https://raw.githubusercontent.com/bastndev/vistaz/main/public/banner.webp" height="128">
   </a>
 
 <br>
@@ -10,9 +10,9 @@
 
 <br>
 
-<a href="https://www.npmjs.com/package/viztas"><img alt="NPM version" src="https://img.shields.io/npm/v/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://www.npmjs.com/package/viztas"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/viztas.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
-<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/viztas.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM version" src="https://img.shields.io/npm/v/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://www.npmjs.com/package/vistaz"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/vistaz.svg?style=for-the-badge&logo=npm&color=8B5E3C&labelColor=18181b"></a>
+<a href="https://github.com/bastndev/vistaz/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/vistaz.svg?style=for-the-badge&color=8B5E3C&labelColor=18181b"></a>
 <a href="https://github.com/bastndev/vistaz/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/bastndev/vistaz.svg?style=for-the-badge&logo=github&color=8B5E3C&labelColor=18181b"></a>
 
 <h1></h1>
@@ -40,7 +40,7 @@
 <br>
 
 ```bash
-npm i viztas
+npm i vistaz
 ```
 
 <br>
@@ -71,7 +71,7 @@ UPSTASH_REDIS_REST_TOKEN=your-rest-token
 
 ```ts
 // Astro: src/pages/api/views/[...slug].ts
-import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
 
 const views = createUpstashAdapter(); // 从环境变量读取 UPSTASH_*
 export const { GET, POST } = createRouteHandlers(views);
@@ -79,7 +79,7 @@ export const { GET, POST } = createRouteHandlers(views);
 
 ```ts
 // Next.js App Router: app/api/views/[...slug]/route.ts
-import { createUpstashAdapter, createRouteHandlers } from "viztas/server";
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
 
 const views = createUpstashAdapter();
 export const { GET, POST } = createRouteHandlers(views);
@@ -98,22 +98,22 @@ export const { GET, POST } = createRouteHandlers(views);
 ---
 // 任何 .astro 页面
 ---
-<p>浏览量：<viztas-counter slug="blog">…</viztas-counter></p>
+<p>浏览量：<vistaz-counter slug="blog">…</vistaz-counter></p>
 
 <script>
-  import { defineViztasCounter } from "viztas/element";
+  import { defineViztasCounter } from "vistaz/element";
   defineViztasCounter();
 </script>
 
 <style>
-  viztas-counter { font-weight: 600; } /* 像任何元素一样设置样式 */
+  vistaz-counter { font-weight: 600; } /* 像任何元素一样设置样式 */
 </style>
 ```
 
 ### React / Next.js / React Native / LynxJS
 
 ```tsx
-import { useViews } from "viztas/react";
+import { useViews } from "vistaz/react";
 
 export function Views({ slug }: { slug: string }) {
   const { count, loading } = useViews(slug);
@@ -135,7 +135,7 @@ const { count } = useViews("blog", {
 ### 纯函数（构建你自己的界面）
 
 ```ts
-import { trackView } from "viztas";
+import { trackView } from "vistaz";
 
 const count = await trackView("blog"); // 首次访问发送 POST，之后发送 GET
 document.querySelector("#views").textContent = String(count);
@@ -157,7 +157,7 @@ document.querySelector("#views").textContent = String(count);
 
 ```ts
 // Astro: src/pages/api/views/ranking.ts   (Next: app/api/views/ranking/route.ts)
-import { createUpstashAdapter, createRankingHandler } from "viztas/server";
+import { createUpstashAdapter, createRankingHandler } from "vistaz/server";
 
 export const { GET } = createRankingHandler(createUpstashAdapter());
 ```
@@ -169,7 +169,7 @@ export const { GET } = createRankingHandler(createUpstashAdapter());
 
 ## API
 
-### 客户端 — `vistas`
+### 客户端 — `vistaz`
 
 ```ts
 trackView(slug, options?): Promise<number>
@@ -180,19 +180,19 @@ createTracker(options?): { track(slug): Promise<number> }
 或 `"30m"`/`"24h"`/`"7d"`）、`storage`（默认 `localStorage` → 内存回退）、
 `fetch`（自定义 fetch）。`trackView` 永远不会在你的界面中抛出错误 — 出错时解析为 `0`。
 
-### 元素 — `vistas/element`
+### 元素 — `vistaz/element`
 
 ```ts
-defineViztasCounter(options?): void   // 注册 <viztas-counter slug endpoint cooldown>
+defineViztasCounter(options?): void   // 注册 <vistaz-counter slug endpoint cooldown>
 ```
 
-### React — `viztas/react`
+### React — `vistaz/react`
 
 ```ts
 useViews(slug, options?): { count: number | null; loading: boolean; error: Error | null }
 ```
 
-### 服务器 — `vistas/server`
+### 服务器 — `vistaz/server`
 
 ```ts
 createUpstashAdapter(options?): ViewsAdapter   // { url?, token?, key?, redis? }
