@@ -88,6 +88,23 @@ export const { GET, POST } = createRouteHandlers(views);
 > **Astro 注意：** API 路由需要 SSR — 添加一个适配器如 `@astrojs/vercel` 并设置
 > `output: "server"`（或 `hybrid`）。完全静态的构建无法运行端点。
 
+### 🚀 Astro / Vite 用户须知
+
+由于 Astro 和 Vite 通过 `import.meta.env` 而非 Node 全局 `process.env` 安全地暴露环境变量，
+自动读取凭据的功能将无法开箱即用。
+
+如果你使用 Astro 或 Vite，必须将 Upstash 凭据显式传递给适配器：
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
+
 ## 3. 显示计数器（客户端）
 
 选择适合你的方式。三者都与同一个端点通信。

@@ -91,6 +91,25 @@ export const { GET, POST } = createRouteHandlers(views);
 > **Astro नोट:** API रूट्स को SSR चाहिए — `@astrojs/vercel` जैसा एडैप्टर जोड़ें और
 > `output: "server"` (या `hybrid`) सेट करें। पूरी तरह से स्टैटिक बिल्ड एंडपॉइंट नहीं चला सकता।
 
+### 🚀 Astro / Vite उपयोगकर्ताओं के लिए नोट
+
+चूंकि Astro और Vite Node के वैश्विक `process.env` की बजाय `import.meta.env` के माध्यम से
+पर्यावरण चर को सुरक्षित रूप से उजागर करते हैं, इसलिए स्वचालित क्रेडेंशियल पठन डिफ़ॉल्ट रूप से
+काम नहीं करेगा।
+
+यदि आप Astro या Vite का उपयोग कर रहे हैं, तो आपको Upstash क्रेडेंशियल्स को एडैप्टर को स्पष्ट रूप से
+पास करना होगा:
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
+
 ## 3. काउंटर दिखाएं (क्लाइंट)
 
 जो उपयुक्त हो चुनें। तीनों एक ही एंडपॉइंट से बात करते हैं।

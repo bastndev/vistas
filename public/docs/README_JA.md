@@ -91,6 +91,23 @@ export const { GET, POST } = createRouteHandlers(views);
 > **Astroの注意：** APIルートにはSSRが必要です — `@astrojs/vercel` のようなアダプターを追加し、
 > `output: "server"`（または `hybrid`）を設定してください。完全に静的なビルドではエンドポイントを実行できません。
 
+### 🚀 Astro / Vite ユーザーへの注意
+
+Astro と Vite は Node のグローバル `process.env` ではなく `import.meta.env` を通じて環境変数を
+安全に公開するため、自動的なクレデンシャル読み取りはそのままでは機能しません。
+
+Astro または Vite を使用している場合は、Upstash のクレデンシャルをアダプターに明示的に渡す必要があります：
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
+
 ## 3. カウンターの表示（クライアント）
 
 適切なものを選択してください。すべて同じエンドポイントと通信します。

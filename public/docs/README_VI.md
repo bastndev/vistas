@@ -91,6 +91,23 @@ export const { GET, POST } = createRouteHandlers(views);
 > **Lưu ý Astro:** API route cần SSR — thêm adapter như `@astrojs/vercel` và đặt
 > `output: "server"` (hoặc `hybrid`). Build hoàn toàn static không thể chạy endpoint.
 
+### 🚀 Lưu ý cho người dùng Astro / Vite
+
+Do Astro và Vite expose biến môi trường một cách an toàn qua `import.meta.env` thay vì global
+`process.env` của Node, việc tự động đọc credentials sẽ không hoạt động ngay lập tức.
+
+Nếu bạn dùng Astro hoặc Vite, bạn phải truyền credentials Upstash tường minh vào adapter:
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
+
 ## 3. Hiển thị bộ đếm (client)
 
 Chọn cách phù hợp. Cả ba đều giao tiếp với cùng một endpoint.

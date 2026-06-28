@@ -91,6 +91,23 @@ export const { GET, POST } = createRouteHandlers(views);
 > **Astro-Hinweis:** API-Routen benötigen SSR — füge einen Adapter wie `@astrojs/vercel` hinzu und setze
 > `output: "server"` (oder `hybrid`). Ein vollständig statischer Build kann keine Endpoints ausführen.
 
+### 🚀 Hinweis für Astro / Vite Nutzer
+
+Da Astro und Vite Umgebungsvariablen sicher über `import.meta.env` statt über Nodes globales `process.env`
+bereitstellen, funktioniert das automatische Lesen der Anmeldedaten nicht von Haus aus.
+
+Wenn du Astro oder Vite verwendest, musst du deine Upstash-Anmeldedaten explizit an den Adapter übergeben:
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
+
 ## 3. Zähler anzeigen (Client)
 
 Wähle die Option, die passt. Alle drei kommunizieren mit demselben Endpoint.

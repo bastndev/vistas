@@ -91,6 +91,23 @@ export const { GET, POST } = createRouteHandlers(views);
 > **Заметка для Astro:** API-маршруты требуют SSR — добавьте адаптер, такой как `@astrojs/vercel`, и установите
 > `output: "server"` (или `hybrid`). Полностью статическая сборка не может запускать эндпоинты.
 
+### 🚀 Заметка для пользователей Astro / Vite
+
+Поскольку Astro и Vite безопасно предоставляют переменные окружения через `import.meta.env`, а не через
+глобальный `process.env` Node, автоматическое чтение учётных данных не будет работать по умолчанию.
+
+Если вы используете Astro или Vite, необходимо явно передать учётные данные Upstash в адаптер:
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
+
 ## 3. Отображение счётчика (клиент)
 
 Выберите подходящий вариант. Все три общаются с одним и тем же эндпоинтом.

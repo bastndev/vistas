@@ -91,6 +91,24 @@ export const { GET, POST } = createRouteHandlers(views);
 > **Note Astro :** Les routes API nécessitent SSR — ajoutez un adaptateur comme `@astrojs/vercel` et définissez
 > `output: "server"` (ou `hybrid`). Un build entièrement statique ne peut pas exécuter des endpoints.
 
+### 🚀 Note pour les utilisateurs d'Astro / Vite
+
+Étant donné qu'Astro et Vite exposent les variables d'environnement de manière sécurisée via `import.meta.env`
+plutôt que le global `process.env` de Node, la lecture automatique des identifiants ne fonctionnera pas
+par défaut.
+
+Si vous utilisez Astro ou Vite, vous devez passer explicitement vos identifiants Upstash à l'adaptateur :
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
+
 ## 3. Afficher le compteur (client)
 
 Choisissez celui qui convient. Les trois communiquent avec le même endpoint.

@@ -92,6 +92,23 @@ export const { GET, POST } = createRouteHandlers(views);
 > **ملاحظة Astro:** مسارات API تحتاج إلى SSR — أضف محولاً مثل `@astrojs/vercel` وعيّن
 > `output: "server"` (أو `hybrid`). البناء الثابت تماماً لا يمكنه تشغيل نقاط النهاية.
 
+### 🚀 ملاحظة لمستخدمي Astro / Vite
+
+نظرًا لأن Astro وVite يكشفان متغيرات البيئة بأمان عبر `import.meta.env` بدلاً من `process.env`
+العالمي في Node، فإن القراءة التلقائية للبيانات الاعتمادية لن تعمل افتراضيًا.
+
+إذا كنت تستخدم Astro أو Vite، يجب تمرير بيانات اعتماد Upstash صراحةً إلى المحول:
+
+```javascript
+import { createUpstashAdapter, createRouteHandlers } from "vistaz/server";
+
+const views = createUpstashAdapter({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN
+});
+export const { GET, POST } = createRouteHandlers(views);
+```
+
 ## 3. عرض العدّاد (عميل)
 
 اختر ما يناسب. الثلاثة يتواصلون مع نفس النقطة النهائية.
